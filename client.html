@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"></head>
+    <style>
+        .full-height {
+            height: 100vh;
+            width: 100%;
+        }
+        .flex-grow {
+            flex-grow: 1;
+        }
+    </style>    
+<body>
+    <h1>Кто быстрее</h1>
+
+
+
+    <div class="container-fluid full-height d-flex flex-column justify-content-center align-items-center">
+        <div class="input-group mb-3 w-100">
+            <input type="text" class="form-control" id="messageInput" placeholder="Введите имя">
+        </div>
+        <button class="btn btn-primary flex-grow"  style="width: 400px;" onclick="sendMessage()">Send</button>
+        <div id="response" class="mt-3"></div>
+    </div>
+
+    <script>
+        // Создаем WebSocket клиент и подключаемся к серверу
+        const ws = new WebSocket('ws://185.26.121.49:8080');
+
+        // Обработчик события открытия соединения
+        ws.onopen = () => {
+            console.log('Connected to the server');
+        };
+
+        // Обработчик события получения сообщения
+        ws.onmessage = (event) => {
+            console.log(`Received: ${event.data}`);
+            /*
+            const messagesDiv = document.getElementById('messages');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = event.data;
+            messagesDiv.appendChild(messageElement);
+            */
+        };
+
+        // Обработчик события закрытия соединения
+        ws.onclose = () => {
+            console.log('Disconnected from the server');
+        };
+
+        // Функция для отправки сообщения
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value;
+            ws.send(message);
+            //input.value = '';
+        }
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
