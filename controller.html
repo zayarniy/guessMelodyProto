@@ -28,8 +28,7 @@
         #border: 1px red solid;
     }
 
-    td
-     {
+    td {
         #border: 1px solid black;
         text-align: center;
         /* Выравнивание текста по центру */
@@ -37,78 +36,96 @@
         /* Выравнивание текста по вертикали */
     }
 
+    .score {
+        font-size: 2em;
+    }
+
     th {
-            background-color: #007bff; /* Фон заголовка */
-            color: white; /* Цвет текста */
-            padding: 10px; /* Отступы внутри ячейки */
-            text-align: center; /* Выравнивание текста по центру */
-            #border: 2px solid #0056b3; /* Граница */
-            border-radius: 5px; /* Скругление углов */
-            font-weight: bold; /* Жирный шрифт */
-            font-size: 1.2em; /* Размер шрифта */
-            background: #0056b3;
-        }
+        background-color: #007bff;
+        /* Фон заголовка */
+        color: white;
+        /* Цвет текста */
+        padding: 10px;
+        /* Отступы внутри ячейки */
+        text-align: center;
+        /* Выравнивание текста по центру */
+        #border: 2px solid #0056b3;
+        /* Граница */
+        border-radius: 5px;
+        /* Скругление углов */
+        font-weight: bold;
+        /* Жирный шрифт */
+        font-size: 1.2em;
+        /* Размер шрифта */
+        background: #0056b3;
+    }
 </style>
 
 <body>
-    <h1>Кто быстрее</h1>
 
 
 
     <div class="container-fluid full-height d-flex flex-column justify-content-center align-items-center">
-        <div id="messages" class="col-md-6" style="overflow: auto;border:1px black solid; height: 200px;">
-        </div>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-striped">                    
+                <h1>Кто быстрее</h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th> </th>
-                            <th>Имя</th>
-                            <th>Баллы</th>
                             <th> </th>
                             <th> </th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tr>
                         <td><button class="btn btn-primary btn-lg" onclick="setName(0)">1</button></td>
-                        <td><input class="form-control" type="text" value="1 игрок" id="inputPlayer0"></td>
-                        <td id="score0">0</td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(0,+1)">+</button></td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(0,-1)">-</button></td>
+                        <td><input class="form-control" type="text" value="1 игрок" id="inputPlayer0"></td>
+                        <td id="score0" class="score">0</td>
                     </tr>
                     <tr>
                         <td><button class="btn btn-primary btn-lg" onclick="setName(1)">2</button></td>
-                        <td><input class="form-control" type="text" value="2 игрок"  id="inputPlayer1"></td>
-                        <td id="score1">0</td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(1,+1)">+</button></td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(1,-1)">-</button></td>
+                        <td><input class="form-control" type="text" value="2 игрок" id="inputPlayer1"></td>
+                        <td id="score1" class="score">0</td>
                     </tr>
                     <tr>
                         <td><button class="btn btn-primary btn-lg" onclick="setName(2)">3</button></td>
-                        <td><input class="form-control" type="text" value="3 игрок"  id="inputPlayer2"></td>
-                        <td id="score2">0</td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(2,+1)">+</button></td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(2,-1)">-</button></td>
+                        <td><input class="form-control" type="text" value="3 игрок" id="inputPlayer2"></td>
+                        <td id="score2" class="score">0</td>
                     </tr>
                     <tr>
                         <td><button class="btn btn-primary btn-lg" onclick="setName(3)">4</button></td>
-                        <td><input class="form-control" type="text" value="4 игрок"  id="inputPlayer3"></td>
-                        <td id="score3">0</td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(3,+1)">+</button></td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(3,-1)">-</button></td>
+                        <td><input class="form-control" type="text" value="4 игрок" id="inputPlayer3"></td>
+                        <td id="score3" class="score">0</td>
                     </tr>
                     <tr>
                         <td><button class="btn btn-primary btn-lg" onclick="setName(4)">5</button></td>
-                        <td><input class="form-control" type="text" value="5 игрок" id="inputPlayer4"></td>
-                        <td id="score4">0</td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(4,+1)">+</button></td>
                         <td><button class="btn btn-primary btn-lg" onclick="setScore(4,-1)">-</button></td>
+                        <td><input class="form-control" type="text" value="5 игрок" id="inputPlayer4"></td>
+                        <td id="score4" class="score">0</td>
                     </tr>
 
                 </table>
             </div>
-
+            <div class="col-md-3">
+                <div id="messages"  style="overflow: auto;border:1px black solid; height: 200px;width: 200px;">
+                </div>
+            </div>
         </div>
         <div class="input-group mb-3 w-100">
             <input type="text" class="form-control" id="messageInput" placeholder="">
@@ -161,9 +178,8 @@
             ws.send('@score ' + player + ' ' + score);
         }
 
-        function setName(player)
-        {
-            ws.send('@newname'+','+player+','+document.getElementById('inputPlayer'+player).value)
+        function setName(player) {
+            ws.send('@newname' + ',' + player + ',' + document.getElementById('inputPlayer' + player).value)
         }
         // Создаем WebSocket клиент и подключаемся к серверу
         const ws = new WebSocket('ws://185.26.121.49:8080');
@@ -187,12 +203,11 @@
                     elementsPlayersScore[player].innerHTML = playersScore[player];
                     return;
                 }
-                if (command.slice(0,7)=='newname')
-                {
+                if (command.slice(0, 7) == 'newname') {
                     const temp = command.split(',');
-                    const player=temp[1];
-                    const name=temp[2];
-                    document.getElementById('inputPlayer'+player).value=name;
+                    const player = temp[1];
+                    const name = temp[2];
+                    document.getElementById('inputPlayer' + player).value = name;
                 }
                 switch (command) {
                     case 'new'://new game
