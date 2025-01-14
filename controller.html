@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebSocket Client</title>
+    <title>Кто быстрее</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <style>
@@ -36,6 +36,10 @@
         /* Выравнивание текста по вертикали */
     }
 
+    .hide {
+        display: none;
+    }
+
     .score {
         font-size: 2em;
     }
@@ -65,14 +69,14 @@
 
 
 
-    <div class="container-fluid full-height d-flex flex-column justify-content-center align-items-center">
+    <div  class="container-fluid  d-flex flex-column justify-content-center align-items-center">
         <div class="row">
             <div class="col-md-12">
                 <h1>Кто быстрее</h1>
             </div>
 
         </div>
-        <div class="row">
+        <div class="row" id="mainDiv">
             <div class="col-md-9">
                 <table class="table table-striped">
                     <thead>
@@ -85,37 +89,37 @@
                         </tr>
                     </thead>
                     <tr>
-                        <td><button class="btn btn-primary btn-lg" onclick="setName(0)">1</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(0,+1)">+</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(0,-1)">-</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setName(0)">1</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(0,+1)">+</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(0,-1)">-</button></td>
                         <td><input class="form-control" type="text" value="1 игрок" id="inputPlayer0"></td>
                         <td id="score0" class="score">0</td>
                     </tr>
                     <tr>
-                        <td><button class="btn btn-primary btn-lg" onclick="setName(1)">2</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(1,+1)">+</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(1,-1)">-</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setName(1)">2</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(1,+1)">+</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(1,-1)">-</button></td>
                         <td><input class="form-control" type="text" value="2 игрок" id="inputPlayer1"></td>
                         <td id="score1" class="score">0</td>
                     </tr>
                     <tr>
-                        <td><button class="btn btn-primary btn-lg" onclick="setName(2)">3</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(2,+1)">+</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(2,-1)">-</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setName(2)">3</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(2,+1)">+</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(2,-1)">-</button></td>
                         <td><input class="form-control" type="text" value="3 игрок" id="inputPlayer2"></td>
                         <td id="score2" class="score">0</td>
                     </tr>
                     <tr>
-                        <td><button class="btn btn-primary btn-lg" onclick="setName(3)">4</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(3,+1)">+</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(3,-1)">-</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setName(3)">4</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(3,+1)">+</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(3,-1)">-</button></td>
                         <td><input class="form-control" type="text" value="4 игрок" id="inputPlayer3"></td>
                         <td id="score3" class="score">0</td>
                     </tr>
                     <tr>
-                        <td><button class="btn btn-primary btn-lg" onclick="setName(4)">5</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(4,+1)">+</button></td>
-                        <td><button class="btn btn-primary btn-lg" onclick="setScore(4,-1)">-</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setName(4)">5</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(4,+1)">+</button></td>
+                        <td><button class="btn btn-primary btn-lg hide" onclick="setScore(4,-1)">-</button></td>
                         <td><input class="form-control" type="text" value="5 игрок" id="inputPlayer4"></td>
                         <td id="score4" class="score">0</td>
                     </tr>
@@ -123,7 +127,8 @@
                 </table>
             </div>
             <div class="col-md-3">
-                <div id="messages"  style="overflow: auto;border:1px black solid; height: 200px;width: 200px;">
+                <div id="messages" class="hide"
+                    style="overflow: auto;border:1px black solid; height: 200px;width: 200px;">
                 </div>
             </div>
         </div>
@@ -134,16 +139,18 @@
 
         <div class="row" id="controlButtons">
             <div class="col-md-6">
-                <button onclick="controlButtons(this)" id="startTimer" class="btn btn-primary btn-lg">New round</button>
-                <button onclick="controlButtons(this)" id="resetTimer" class="btn btn-danger btn-lg"
+                <button onclick="controlButtons(this)" id="startTimer"
+                    class="btn btn-primary btn-lg hide">Round</button>
+                <button onclick="controlButtons(this)" id="resetTimer" class="btn btn-danger btn-lg hide"
                     disabled>True</button>
-                <button onclick="toggleMode()" id="mode" class="btn btn-info btn-lg" disabled>False</button>
+                <button onclick="toggleMode()" id="mode" class="btn btn-info btn-lg hide" disabled>False</button>
 
             </div>
             <div class="col-md-6">
-                <button class="btn btn-warning btn-lg " onclick="sendMessage()">Send</button>
-                <button onclick="togglePanel()" id="hideControl" class="btn btn-info btn-lg" disabled>Panel</button>
-                <button onclick="controlButtons(this)" id="stopTimer" class="btn btn-warning btn-lg" disabled>New
+                <button class="btn btn-warning btn-lg" style="min-width: 100px;" onclick="sendMessage()">Готов</button>
+                <button onclick="togglePanel()" id="hideControl" class="btn btn-info btn-lg hide"
+                    disabled>Panel</button>
+                <button onclick="controlButtons(this)" id="stopTimer" class="btn btn-warning btn-lg hide" disabled>New
                     game</button>
 
             </div>
@@ -153,22 +160,80 @@
     </div>
 
     <script>
-        const GameStatuses = { PREPAIR: 0, PLAY: 1, PAUSE: 2, STOP: 3 }
-        let gameStatus = GameStatuses.PREPAIR;
+
+        document.addEventListener('keydown', handlePasswordInput);
+        const GameStatuses = { PREPAIR: 0, PLAY: 1, PAUSE: 2, STOP: 3, NOGAME: -1 }
+        let password = '';
+        const MAX_LENGTH = 6;
+        const targetPassword = 'qqwwee';
+        let gameStatus = GameStatuses.NOGAME;
         let playersScore = [];
         let elementsPlayersScore = [];
+
+        function handlePasswordInput(event) {
+            const eventKey = event.key;
+            const key = eventKey.toLowerCase();
+            // Добавляем новую букву к строке пароля
+            if (key.length == 1)
+                password += key;
+            console.log(password)
+
+            // Ограничиваем длину строки пароля до MAX_LENGTH
+            if (password.length > MAX_LENGTH) {
+                password = password.slice(1);
+            }
+
+            // Если строка пароля совпадает с целевым паролем, вызываем функцию
+            if (password === targetPassword) {
+                executeFunction();
+                password = ''; // Сбрасываем строку пароля после выполнения функции
+            }
+        }
+
+        function executeFunction() {
+            // Здесь можно разместить любой код, который нужно выполнить при вводе пароля
+            console.log('Пароль введен успешно!');
+            show_buttons();
+        }
+
+        function show_buttons() {
+            const controlElements = document.querySelectorAll('.hide');
+            controlElements.forEach(function (element) {
+                element.style.display = 'block';
+            });
+
+        }
+
         init();
+        const audio = new Audio('sounds/audio1.mp3');
+
         function init() {
             for (let i = 0; i < 5; i++) {
                 elementsPlayersScore[i] = document.getElementById('score' + i)
                 playersScore[i] = 0;
             }
+            const pass = prompt("Введите пароль:");
+            if (pass == 'padmin') {
+                show_buttons();
+                gameStatus = GameStatuses.PLAY;
+                return;
+            }
+            if (pass === 'pass') {
+                gameStatus = GameStatuses.PLAY;
+            }
+            else {
+                alert("Wrong password")
+                gameStatus = GameStatuses.NOGAME;
+                document.getElementById('mainDiv').style.display='none';
+                return;
+            }
         }
 
         function controlButtons(control) {
+            if (gameStatus == GameStatuses.NOGAME) return;
             console.log(control.textContent);
-            switch (control.textContent) {
-                case 'New round':
+            switch (control.textContent.toLowerCase()) {
+                case 'round':
                     ws.send('@new');
                     break;
             }
@@ -219,7 +284,6 @@
             }
             else {
                 if (index == 0) {
-                    const audio = new Audio('sounds/audio1.mp3');
                     audio.play();
                 }
                 const messagesDiv = document.getElementById('messages');
@@ -236,8 +300,15 @@
 
         // Функция для отправки сообщения
         function sendMessage() {
+            if (gameStatus == GameStatuses.NOGAME) return;
+
             const input = document.getElementById('messageInput');
+            if (input == 'qqwweerr') {
+                show_buttons();
+                return;
+            }
             const message = input.value;
+            if (message == '') return;
             ws.send(message);
             const messagesDiv = document.getElementById('messages');
 
